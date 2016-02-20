@@ -82,6 +82,8 @@
 #include "df/vehicle.h"
 #include "df/world.h"
 
+#include <algorithm>
+
 REQUIRE_GLOBAL(cur_year);
 REQUIRE_GLOBAL(cur_year_tick);
 REQUIRE_GLOBAL(ui);

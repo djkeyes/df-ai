@@ -1,0 +1,10 @@
+
+
+# gedit tmp files
+*~
+
+# files from eclipse
+df-ai/.cproject
+df-ai/.project
+
+

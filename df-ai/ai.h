@@ -30,6 +30,7 @@ class Plan;
 class Stocks;
 class Camera;
 class Embark;
+class Statistics;
 
 class AI
 {
@@ -41,6 +42,7 @@ public:
     Stocks *stocks;
     Camera *camera;
     Embark *embark;
+    Statistics *statistics;
 
     OnupdateCallback *status_onupdate;
     OnupdateCallback *pause_onupdate;

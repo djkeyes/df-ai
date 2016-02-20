@@ -4,6 +4,7 @@
 #include "stocks.h"
 #include "camera.h"
 #include "embark.h"
+#include "statistics.h"
 
 #include "modules/Gui.h"
 #include "modules/Screen.h"
@@ -40,6 +41,7 @@ AI::AI() :
     stocks(new Stocks(this)),
     camera(new Camera(this)),
     embark(new Embark(this)),
+    statistics(new Statistics(this)),
     status_onupdate(nullptr),
     pause_onupdate(nullptr),
     seen_cvname()
@@ -51,6 +53,7 @@ AI::~AI()
 {
     delete embark;
     delete camera;
+    delete statistics;
     delete stocks;
     delete plan;
     delete pop;
@@ -171,6 +174,8 @@ command_result AI::startup(color_ostream & out)
         res = camera->startup(out);
     if (res == CR_OK)
         res = embark->startup(out);
+    if (res == CR_OK)
+        res = statistics->startup(out);
     return res;
 }
 
@@ -480,6 +485,8 @@ command_result AI::onupdate_register(color_ostream & out)
     if (res == CR_OK)
         res = embark->onupdate_register(out);
     if (res == CR_OK)
+        res = statistics->onupdate_register(out);
+    if (res == CR_OK)
     {
         status_onupdate = events.onupdate_register("df-ai status", 3*28*1200, 3*28*1200, [this](color_ostream & out) { debug(out, status()); });
         last_unpause = std::time(nullptr);
@@ -513,6 +520,8 @@ command_result AI::onupdate_unregister(color_ostream & out)
 {
     command_result res = CR_OK;
     if (res == CR_OK)
+        res = statistics->onupdate_unregister(out);
+    if (res == CR_OK)
         res = embark->onupdate_unregister(out);
     if (res == CR_OK)
         res = camera->onupdate_unregister(out);
@@ -536,7 +545,8 @@ std::string AI::status()
     str << "Plan: " << plan->status() << "\n";
     str << "Pop: " << pop->status() << "\n";
     str << "Stocks: " << stocks->status() << "\n";
-    str << "Camera: " << camera->status();
+    str << "Camera: " << camera->status() << "\n";
+    str << "Statistics: " << statistics->status();
     return str.str();
 }
 

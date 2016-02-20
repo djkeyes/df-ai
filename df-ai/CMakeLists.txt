@@ -8,6 +8,7 @@ SET(PROJECT_SRCS
     stocks.cpp
     camera.cpp
     embark.cpp
+    statistics.cpp
     room.cpp
     event_manager.cpp
 )
@@ -19,6 +20,7 @@ SET(PROJECT_HDRS
     stocks.h
     camera.h
     embark.h
+    statistics.h
     room.h
     event_manager.h
     cache_hash.h
